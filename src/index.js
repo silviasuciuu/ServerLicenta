@@ -1,3 +1,4 @@
+import Client from "domain/client"
 const Koa = require('koa');
 const app = new Koa();
 const server = require('http').createServer(app.callback());
@@ -6,7 +7,7 @@ const wss = new WebSocket.Server({ server });
 const Router = require('koa-router');
 const cors = require('koa-cors');
 const bodyparser = require('koa-bodyparser');
-
+/*
 app.use(bodyparser());
 app.use(cors());
 app.use(async (ctx, next) => {
@@ -165,3 +166,5 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 server.listen(3000);
+*/
+const c=new Client(2,'vlad',"andrei","vladandr@gmail.com","parola",23,76,189,"m",21.3,"normal");
