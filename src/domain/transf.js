@@ -171,7 +171,7 @@ var chr = '';
 //    constructor({id, id_antrenor,id_client,scop,kilograme, before, after,}) {
 cloudinary.uploader.upload("C:\\Users\\User\\Desktop\\download.jpg", function (error, result) {
     Transformare.create(new Transformare({
-            "id": 12,
+            "id": 11,
             "id_antrenor": 1,
             "id_client": 1,
             "scop": 1,
@@ -179,6 +179,7 @@ cloudinary.uploader.upload("C:\\Users\\User\\Desktop\\download.jpg", function (e
             "inainte": result.url,
             "dupa": result.url
         }), (err, tr) => {
+            console.log(tr, err);
 
         }
     )

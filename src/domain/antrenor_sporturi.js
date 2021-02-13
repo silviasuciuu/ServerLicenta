@@ -1,24 +1,17 @@
 import {dbConn} from "../dbutils/db.config"
 
-export default class ClientApp {
-    constructor({id, nume, prenume, email, parola, varsta, greutate, inaltime, sex, bmi, status}) {
+export default class AntrenorSporturi {
+    constructor({id, nume, prenume, email, parola, varsta}) {
         this.id = id;
         this.nume = nume;
         this.prenume = prenume;
         this.email = email;
         this.parola = parola;
         this.varsta = varsta;
-        this.greutate = greutate;
-        this.inaltime = inaltime;
-        this.sex = sex;
-        this.bmi = bmi;
-        this.status = status;
-
-
     }
 
-    static create(newClient, result){
-        dbConn.query("INSERT INTO client set ?", newClient, function (err, res){
+    static create(newAntrenorSporturi, result){
+        dbConn.query("INSERT INTO antrenor_sporturi set ?", newAntrenorSporturi, function (err, res){
             if(err){
                 console.log("error: ",err);
                 result(err,null);
@@ -27,9 +20,8 @@ export default class ClientApp {
             }
         });
     };
-
     static findAll(result) {
-        dbConn.query("SELECT * from client", function (err, res) {
+        dbConn.query("SELECT * from antrenor_sporturi", function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(null, err);
@@ -40,8 +32,8 @@ export default class ClientApp {
         });
     };
 
-    static findById(id, result) {
-        dbConn.query("SELECT * from client where id = ? ", id, function (err, res) {
+    static findByIdAntrenor(id, result) {
+        dbConn.query("SELECT * from antrenor_sporturi where id_antrenor = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -51,8 +43,8 @@ export default class ClientApp {
         });
     };
 
-    static findByEmailAndPassword(email, parola, result) {
-        dbConn.query("SELECT * from client where email = ? and parola=?", email, parola, function (err, res) {
+    static findByIdSport(id, result) {
+        dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -63,8 +55,20 @@ export default class ClientApp {
     };
 
 
-    static update(client, result) {
-        dbConn.query("UPDATE client SET nume=?,prenume=?,email=?,parola=?,varsta=?,greutate=?,inaltime=?,sex=?,bmi=? where id=?", [client.nume, client.prenume, client.email, client.parola, client.varsta, client.greutate, client.inaltime, client.sex, client.bmi, client.id], function (err, res) {
+
+
+    static update(id_antrenor,id_sport,experienta, result) {
+        dbConn.query("UPDATE antrenor_sporturi SET experienta=? where id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    }
+    static delete(id_antrenor,id_sport, result) {
+        dbConn.query("REMOVE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor,id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
