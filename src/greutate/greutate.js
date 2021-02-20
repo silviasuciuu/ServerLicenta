@@ -8,7 +8,7 @@ export default class Greutate {
 
     }
 
-    static create(newGreutate, result){
+    static async create(newGreutate, result){
         dbConn.query("INSERT INTO greutate set ?", newGreutate, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -18,7 +18,7 @@ export default class Greutate {
             }
         });
     };
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from greutate", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -30,7 +30,7 @@ export default class Greutate {
         });
     };
 
-    static findByIdClient(id, result) {
+    static async findByIdClient(id, result) {
         dbConn.query("SELECT * from greutate where idClient = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -44,7 +44,7 @@ export default class Greutate {
 
 
 
-    static update(idClient,greutate,data, result) {
+    static async async update(idClient,greutate,data, result) {
         dbConn.query("UPDATE greutate SET greutate=?,data=? where id=Client?", [greutate, data, idClient], function (err, res) {
             if (err) {
                 console.log("error: ", err);

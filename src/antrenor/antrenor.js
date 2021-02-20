@@ -12,7 +12,7 @@ export default class Antrenor {
         this.descriere=descriere;
     }
 
-    static create(newAntrenor, result){
+    static async create(newAntrenor, result){
         dbConn.query("INSERT INTO antrenor set ?", newAntrenor, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -22,7 +22,7 @@ export default class Antrenor {
             }
         });
     };
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from antrenor", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -34,7 +34,7 @@ export default class Antrenor {
         });
     };
 
-    static findById(id, result) {
+    static async findById(id, result) {
         dbConn.query("SELECT * from antrenor where id = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -45,7 +45,7 @@ export default class Antrenor {
         });
     };
 
-    static findByEmailAndPassword(email, parola, result) {
+    static async findByEmailAndPassword(email, parola, result) {
         dbConn.query("SELECT * from antrenor where email = ? and parola=?", email, parola, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -57,7 +57,7 @@ export default class Antrenor {
     };
 
 
-    static update(antrenor, result) {
+    static async update(antrenor, result) {
         dbConn.query("UPDATE antrenor SET nume=?,prenume=? ,email=? ,parola=? ,varsta=? ,nota=? ,descriere=? where id=?", [antrenor.nume, antrenor.prenume, antrenor.email, antrenor.parola, antrenor.varsta,antrenor.nota,antrenor.descriere, antrenor.id], function (err, res) {
             if (err) {
                 console.log("error: ", err);

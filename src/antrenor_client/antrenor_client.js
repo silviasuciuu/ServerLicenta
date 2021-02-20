@@ -1,17 +1,14 @@
 import {dbConn} from "../dbutils/db.config"
 
-export default class AntrenorSporturi {
-    constructor({id, nume, prenume, email, parola, varsta}) {
-        this.id = id;
-        this.nume = nume;
-        this.prenume = prenume;
-        this.email = email;
-        this.parola = parola;
-        this.varsta = varsta;
+export default class AntrenorClient {
+    constructor({id_antrenor, id_client}) {
+        this.id_antrenor = id_antrenor;
+        this.id_client = id_client;
+
     }
 
-    static create(newAntrenorSporturi, result){
-        dbConn.query("INSERT INTO antrenor_sporturi set ?", newAntrenorSporturi, function (err, res){
+    static async create(newAntrenorClient, result){
+        dbConn.query("INSERT INTO antrenor_client set ?", newAntrenorClient, function (err, res){
             if(err){
                 console.log("error: ",err);
                 result(err,null);
@@ -20,8 +17,8 @@ export default class AntrenorSporturi {
             }
         });
     };
-    static findAll(result) {
-        dbConn.query("SELECT * from antrenor_sporturi", function (err, res) {
+    static async findAll(result) {
+        dbConn.query("SELECT * from antrenor_client", function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(null, err);
@@ -32,8 +29,18 @@ export default class AntrenorSporturi {
         });
     };
 
-    static findByIdAntrenor(id, result) {
-        dbConn.query("SELECT * from antrenor_sporturi where id_antrenor = ? ", id, function (err, res) {
+    static async findByIdAntrenor(id, result) {
+        dbConn.query("SELECT * from antrenor_client where id_antrenor = ? ", id, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
+    static async findByIdClient(id, result) {
+        dbConn.query("SELECT * from antrenor_client where id_client = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -43,8 +50,8 @@ export default class AntrenorSporturi {
         });
     };
 
-    static findByIdSport(id, result) {
-        dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ", id, function (err, res) {
+    static async findByIdClientAndIdAntrenor(idc,ida, result) {
+        dbConn.query("SELECT * from antrenor_client where id_antrenor = ? and id_client=?", idc, ida, function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -57,18 +64,8 @@ export default class AntrenorSporturi {
 
 
 
-    static update(id_antrenor,id_sport,experienta, result) {
-        dbConn.query("UPDATE antrenor_sporturi SET experienta=? where id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
-            if (err) {
-                console.log("error: ", err);
-                result(err, null);
-            } else {
-                result(null, res);
-            }
-        });
-    }
-    static delete(id_antrenor,id_sport, result) {
-        dbConn.query("REMOVE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor,id_sport], function (err, res) {
+    static async delete(id_antrenor,id_client, result) {
+        dbConn.query("REMOVE FROM antrenor_client  where id_antrenor=? AND id_client=?", [id_antrenor,id_client], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

@@ -17,7 +17,7 @@ export default class ClientApp {
 
     }
 
-    static create(newClient, result){
+    static async create(newClient, result){
         dbConn.query("INSERT INTO client set ?", newClient, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -28,7 +28,7 @@ export default class ClientApp {
         });
     };
 
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from client", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -40,7 +40,7 @@ export default class ClientApp {
         });
     };
 
-    static findById(id, result) {
+    static async findById(id, result) {
         dbConn.query("SELECT * from client where id = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -51,7 +51,7 @@ export default class ClientApp {
         });
     };
 
-    static findByEmailAndPassword(email, parola, result) {
+    static async findByEmailAndPassword(email, parola, result) {
         dbConn.query("SELECT * from client where email = ? and parola=?", email, parola, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -63,7 +63,7 @@ export default class ClientApp {
     };
 
 
-    static update(client, result) {
+    static async update(client, result) {
         dbConn.query("UPDATE client SET nume=?,prenume=?,email=?,parola=?,varsta=?,greutate=?,inaltime=?,sex=?,bmi=? where id=?", [client.nume, client.prenume, client.email, client.parola, client.varsta, client.greutate, client.inaltime, client.sex, client.bmi, client.id], function (err, res) {
             if (err) {
                 console.log("error: ", err);

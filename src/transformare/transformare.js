@@ -12,7 +12,7 @@ export default class Transformare {
 
     }
 
-    static create(newTransformare, result) {
+    static async create(newTransformare, result) {
         dbConn.query("INSERT INTO transformare set ?", newTransformare, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -23,7 +23,7 @@ export default class Transformare {
         });
     };
 
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from transformare", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -35,7 +35,7 @@ export default class Transformare {
         });
     };
 
-    static findByIdAntrenor(id, result) {
+    static async findByIdAntrenor(id, result) {
         dbConn.query("SELECT * from transformare where id_antrenor = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -46,7 +46,7 @@ export default class Transformare {
         });
     };
 
-    static findByIdClient(id, result) {
+    static async findByIdClient(id, result) {
         dbConn.query("SELECT * from transformare where id_client = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -57,7 +57,7 @@ export default class Transformare {
         });
     };
 
-    static findByCLientAntrenor(idC, idA, result) {
+    static async findByCLientAntrenor(idC, idA, result) {
         dbConn.query("SELECT * from transformare where id_client = ? and id_antrenor=?", idC, idA, function (err, res) {
             if (err) {
                 console.log("error: ", err);

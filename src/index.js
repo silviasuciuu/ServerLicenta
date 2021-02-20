@@ -1,4 +1,4 @@
-import Transformare from "./domain/transformare";
+import Transformare from "./transformare/transformare";
 
 var mysql = require('mysql');
 /*

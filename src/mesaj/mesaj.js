@@ -9,7 +9,7 @@ export default class Mesaj {
 
     }
 
-    static create(newMesaj, result){
+    static async create(newMesaj, result){
         dbConn.query("INSERT INTO mesaj set ?", newMesaj, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -19,7 +19,7 @@ export default class Mesaj {
             }
         });
     };
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from mesaj", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -31,7 +31,7 @@ export default class Mesaj {
         });
     };
 
-    static findByIdClient(id, result) {
+    static async findByIdClient(id, result) {
         dbConn.query("SELECT * from mesaj where id_client = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -42,7 +42,7 @@ export default class Mesaj {
         });
     };
 
-    static findByIdAntrenor(id, result) {
+    static async findByIdAntrenor(id, result) {
         dbConn.query("SELECT * from mesaj where id_antrenor = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -53,7 +53,7 @@ export default class Mesaj {
         });
     };
 
-    static findBetween(idClient,idAntrenor, result) {
+    static async findBetween(idClient,idAntrenor, result) {
         dbConn.query("SELECT * from mesaj where (id_client = ? AND id_antrenor = ?) " +
             "OR  (id_client = ? AND id_antrenor = ?) ORDER BY trimis", idClient,idAntrenor, function (err, res) {
             if (err) {

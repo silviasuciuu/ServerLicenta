@@ -1,0 +1,1 @@
+export * from './antrenor_client_router';

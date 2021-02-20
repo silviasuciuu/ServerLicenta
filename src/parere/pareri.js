@@ -10,7 +10,7 @@ export default class Parere {
 
     }
 
-    static create(newParere, result){
+    static async create(newParere, result){
         dbConn.query("INSERT INTO pareri set ?", newParere, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -20,7 +20,7 @@ export default class Parere {
             }
         });
     };
-    static findAll(result) {
+    static async findAll(result) {
         dbConn.query("SELECT * from pareri", function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -32,7 +32,7 @@ export default class Parere {
         });
     };
 
-    static findByIdClient(id, result) {
+    static async findByIdClient(id, result) {
         dbConn.query("SELECT * from pareri where id_client = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -43,7 +43,7 @@ export default class Parere {
         });
     };
 
-    static findByIdAntrenor(id, result) {
+    static async findByIdAntrenor(id, result) {
         dbConn.query("SELECT * from pareri where id_antrenor = ? ", id, function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -56,7 +56,7 @@ export default class Parere {
 
 
 
-    static update(id,descriere,idClient,idAntrenor,nota, result) {
+    static async update(id,descriere,idClient,idAntrenor,nota, result) {
         dbConn.query("UPDATE pareri SET descriere=?,nota=? where id_client=? AND id_antrenor=?", [descriere,nota,idClient,idAntrenor], function (err, res) {
             if (err) {
                 console.log("error: ", err);
