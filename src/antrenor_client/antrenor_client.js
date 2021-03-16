@@ -65,7 +65,7 @@ export default class AntrenorClient {
 
 
     static async delete(id_antrenor,id_client, result) {
-        dbConn.query("REMOVE FROM antrenor_client  where id_antrenor=? AND id_client=?", [id_antrenor,id_client], function (err, res) {
+        dbConn.query("DELETE FROM antrenor_client  where id_antrenor=? AND id_client=?", [id_antrenor,id_client], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

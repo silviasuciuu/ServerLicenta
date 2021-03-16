@@ -21,6 +21,19 @@ router.get('/', (req, res) => {
     });
 });
 
+/*get by id*/
+router.get('/id', (req, res) => {
+    var id = req.headers["id"];
+
+    Antrenor.findById(id,(err, antrenor) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(antrenor);
+        }
+    });
+});
+
 /*get by email and password*/
 router.get('/credidentials', (req, res) => {
     var email = req.headers["email"];

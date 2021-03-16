@@ -1,1 +1,1 @@
-export * from './mesaj_router';
+export * from './mesajRouter';

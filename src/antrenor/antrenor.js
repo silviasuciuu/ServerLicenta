@@ -61,7 +61,7 @@ export default class Antrenor {
 
     static async update(antrenor, result) {
         console.log(antrenor)
-        dbConn.query("UPDATE antrenor SET nume=?,prenume=? ,email=? ,parola=? ,varsta=? ,nota=? ,descriere=?,poza=? where nume=? and prenume=?", [antrenor.nume, antrenor.prenume, antrenor.email, antrenor.parola, antrenor.varsta,antrenor.nota,antrenor.descriere,antrenor.poza, antrenor.nume,antrenor.prenume], function (err, res) {
+        dbConn.query("UPDATE antrenor SET email=? ,parola=? ,varsta=? ,nota=? ,descriere=?,poza=? where nume=? and prenume=?", [ antrenor.email, antrenor.parola, antrenor.varsta,antrenor.nota,antrenor.descriere,antrenor.poza, antrenor.nume,antrenor.prenume], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

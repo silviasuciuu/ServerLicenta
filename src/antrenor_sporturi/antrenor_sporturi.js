@@ -1,13 +1,11 @@
 import {dbConn} from "../dbutils/db.config"
 
 export default class AntrenorSporturi {
-    constructor({id, nume, prenume, email, parola, varsta}) {
-        this.id = id;
-        this.nume = nume;
-        this.prenume = prenume;
-        this.email = email;
-        this.parola = parola;
-        this.varsta = varsta;
+    constructor({id_antrenor, id_sport, experienta}) {
+        this.id_antrenor = id_antrenor;
+        this.id_sport = id_sport;
+        this.experienta = experienta;
+
     }
 
     static async create(newAntrenorSporturi, result){
@@ -33,7 +31,7 @@ export default class AntrenorSporturi {
     };
 
     static async findByIdAntrenor(id, result) {
-        dbConn.query("SELECT * from antrenor_sporturi where id_antrenor = ? ", id, function (err, res) {
+        dbConn.query("SELECT * from antrenor_sporturi where id_antrenor = ? ", [id], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -58,7 +56,8 @@ export default class AntrenorSporturi {
 
 
     static async update(id_antrenor,id_sport,experienta, result) {
-        dbConn.query("UPDATE antrenor_sporturi SET experienta=? where id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
+        console.log("hereee"+id_antrenor,id_sport,experienta)
+        dbConn.query("UPDATE antrenor_sporturi SET experienta=? WHERE id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -68,7 +67,7 @@ export default class AntrenorSporturi {
         });
     }
     static async delete(id_antrenor,id_sport, result) {
-        dbConn.query("REMOVE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor,id_sport], function (err, res) {
+        dbConn.query("DELETE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor,id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
