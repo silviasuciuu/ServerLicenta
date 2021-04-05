@@ -4,6 +4,7 @@ export default class Mesaj {
     constructor({id,id_client,id_antrenor, mesaj, status}) {
         this.id=id;
         this.id_antrenor = id_antrenor;
+        this.id_client=id_client;
         this.mesaj = mesaj;
         this.status = status;
 
