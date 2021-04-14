@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import * as res from "express";
 import Client from "./client";
+import path from "path";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -48,8 +49,7 @@ router.get('/credidentials', (req, res) => {
     });
 });
 
-router.post('/create', (req, res) => {
-    console.log(req.body)
+router.post('/create', async (req, res) => {
 
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
@@ -79,11 +79,17 @@ router.post('/create', (req, res) => {
         "status":status,
         "descriere":descriere
     })
-    Client.create(a, (err, result) => {
+    await Client.findByEmail(email, (err, user) => {
         if (err) {
-            res.send(err);
         } else {
-            res.sendStatus(200);
+            if (user.length !== 0) {
+                res.status(400).send({ error: "Email already used" });
+            }
+            else{
+                Client.create(a, (err, user) => {
+                    res.sendStatus(200);
+                });
+            }
         }
     });
 });

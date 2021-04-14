@@ -64,7 +64,16 @@ export default class ClientApp {
         });
     };
 
-
+    static async findByEmail(email,  result) {
+        dbConn.query("SELECT * from client where email = ?",[ email], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
     static async update(client, result) {
         dbConn.query("UPDATE client SET nume=?,prenume=?,email=?,parola=?,varsta=?,greutate=?,inaltime=?,sex=?,bmi=?,poza=?,descriere=?,status=? where id=?", [client.nume, client.prenume, client.email, client.parola, client.varsta, client.greutate, client.inaltime, client.sex, client.bmi,client.poza,client.descriere,client.status, client.id], function (err, res) {
             if (err) {

@@ -58,6 +58,16 @@ export default class Antrenor {
         });
     };
 
+    static async findByEmail(email, result) {
+        dbConn.query("SELECT * from antrenor where email = ? ", [email], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
 
     static async update(antrenor, result) {
         console.log(antrenor)

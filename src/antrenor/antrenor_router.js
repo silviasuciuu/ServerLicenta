@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import antrenor from "./antrenor";
 import * as res from "express";
 import Antrenor from "./antrenor";
+import Client from "../client/client";
 const bodyParser = require('body-parser');
 var express = require('express')
 const app = express();
@@ -48,8 +49,7 @@ router.get('/credidentials', (req, res) => {
     });
 });
 
-router.post('/create',  (req, res) => {
-    console.log(req.body)
+router.post('/create',  async (req, res) => {
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
     var email = req.body["email"];
@@ -68,11 +68,17 @@ router.post('/create',  (req, res) => {
         "descriere": descriere,
         "poza": poza
     })
-    Antrenor.create(a, (err, result) => {
+    await Antrenor.findByEmail(email, (err, user) => {
         if (err) {
-            res.send(err);
         } else {
-            res.sendStatus(200);
+            if (user.length !== 0) {
+                res.status(400).send({ error: "Email already used" });
+            }
+            else{
+                Antrenor.create(a, (err, user) => {
+                    res.sendStatus(200);
+                });
+            }
         }
     });
 });

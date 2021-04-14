@@ -56,7 +56,7 @@ export default class Parere {
 
 
 
-    static async update(id,descriere,idClient,idAntrenor,nota, result) {
+    static async update(descriere,idClient,idAntrenor,nota, result) {
         dbConn.query("UPDATE pareri SET descriere=?,nota=? where id_client=? AND id_antrenor=?", [descriere,nota,idClient,idAntrenor], function (err, res) {
             if (err) {
                 console.log("error: ", err);
