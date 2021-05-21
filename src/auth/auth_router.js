@@ -10,8 +10,6 @@ var jsonParser = bodyParser.json()
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from '../utils/constants';
 
-
-
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
 export const router = express.Router()

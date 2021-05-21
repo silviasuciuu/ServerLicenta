@@ -29,4 +29,16 @@ export default class Sport {
             }
         });
     }
+
+
+    static async findByName(name, result) {
+        dbConn.query("SELECT * from sport where denumire = ? ", [name], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
 }

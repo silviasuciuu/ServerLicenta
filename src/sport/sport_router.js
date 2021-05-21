@@ -18,8 +18,19 @@ router.get('/', (req, res) => {
 /*toate sporturile dupa scop*/
 router.get('/scope', (req, res) => {
     var scope=req.headers["scope"];
-
     Sport.findByScope(scope,(err, sport) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(sport);
+        }
+    });
+});
+
+
+router.get('/nume', (req, res) => {
+    var name = req.headers["denumire"];
+    Sport.findByName(name, (err, sport) => {
         if (err) {
             res.send(err);
         } else {

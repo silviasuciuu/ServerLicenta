@@ -6,6 +6,7 @@ export default class Auth {
     constructor({email, parola, tip}) {
         this.email = email;
         this.parola = parola;
+        this.tip=tip;
 
     }
 
@@ -21,10 +22,6 @@ export default class Auth {
                 result(null, res);
             }
         });
-        /*
-        Auth.findByEMailAndPassword("anapop@gmail.com", "parola", "client", function (error, result) {
-    console.log(result[0].nume + "rrrrr");
-})*/
 
 
     };

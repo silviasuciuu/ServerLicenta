@@ -44,7 +44,7 @@ export default class Greutate {
 
 
 
-    static async async update(idClient,greutate,data, result) {
+    static async  update(idClient,greutate,data, result) {
         dbConn.query("UPDATE greutate SET greutate=?,data=? where id=Client?", [greutate, data, idClient], function (err, res) {
             if (err) {
                 console.log("error: ", err);

@@ -3,13 +3,14 @@ import antrenor from "./antrenor";
 import * as res from "express";
 import Antrenor from "./antrenor";
 import Client from "../client/client";
+
 const bodyParser = require('body-parser');
 var express = require('express')
 const app = express();
 var jsonParser = bodyParser.json()
 
 app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
 export const router = express.Router()
 /*toti antrenorii*/
 router.get('/', (req, res) => {
@@ -22,11 +23,28 @@ router.get('/', (req, res) => {
     });
 });
 
+
+/*get by email*/
+router.get('/email', (req, res) => {
+    var email = req.headers["email"];
+    // se primeste ed forma "email" trebuie eliminate ghilimelele
+    var emaill=email.substring(1,email.length-1)
+
+    Antrenor.findByEmail(emaill, (err, antrenor) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(antrenor);
+        }
+    });
+});
+
+
 /*get by id*/
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
 
-    Antrenor.findById(id,(err, antrenor) => {
+    Antrenor.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
         } else {
@@ -49,7 +67,7 @@ router.get('/credidentials', (req, res) => {
     });
 });
 
-router.post('/create',  async (req, res) => {
+router.post('/create', async (req, res) => {
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
     var email = req.body["email"];
@@ -72,9 +90,8 @@ router.post('/create',  async (req, res) => {
         if (err) {
         } else {
             if (user.length !== 0) {
-                res.status(400).send({ error: "Email already used" });
-            }
-            else{
+                res.status(400).send({error: "Email already used"});
+            } else {
                 Antrenor.create(a, (err, user) => {
                     res.sendStatus(200);
                 });
@@ -83,7 +100,7 @@ router.post('/create',  async (req, res) => {
     });
 });
 
-router.put('/edit',  (req, res) => {
+router.put('/edit', (req, res) => {
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
     var email = req.body["email"];

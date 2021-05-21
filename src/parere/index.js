@@ -1,1 +1,1 @@
-export * from './parere_router';
+export * from './pareri_router';

@@ -56,7 +56,6 @@ export default class AntrenorSporturi {
 
 
     static async update(id_antrenor,id_sport,experienta, result) {
-        console.log("hereee"+id_antrenor,id_sport,experienta)
         dbConn.query("UPDATE antrenor_sporturi SET experienta=? WHERE id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);

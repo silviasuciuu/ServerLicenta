@@ -1,8 +1,14 @@
 import Transformare from "./transformare";
-import {router} from "../parere/pareri_router";
 
 
+const bodyParser = require('body-parser');
+var express = require('express')
+const app = express();
+var jsonParser = bodyParser.json()
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
+export const router = express.Router()
 router.post('/create', (req, res) => {
 
     var id_antrenor = req.body["id_antrenor"];

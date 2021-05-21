@@ -47,6 +47,8 @@ router.get('/id_sport', (req, res) => {
 
 /*create*/
 router.post('/create', (req, res) => {
+
+
     var id_sport = req.body["id_sport"];
     var id_antrenor = req.body["id_antrenor"];
     var experienta = req.body["experienta"];
