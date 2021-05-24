@@ -29,7 +29,16 @@ export default class ClientApp {
             }
         });
     };
-
+    static async findByEmail(email, result) {
+        dbConn.query("SELECT * from client where email = ? ", [email], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
     static async findAll(result) {
         dbConn.query("SELECT * from client", function (err, res) {
             if (err) {

@@ -27,14 +27,18 @@ router.get('/', (req, res) => {
 /*get by email*/
 router.get('/email', (req, res) => {
     var email = req.headers["email"];
+    console.log(email)
     // se primeste ed forma "email" trebuie eliminate ghilimelele
     var emaill=email.substring(1,email.length-1)
 
     Antrenor.findByEmail(emaill, (err, antrenor) => {
+
         if (err) {
             res.send(err);
         } else {
+
             res.send(antrenor);
+            console.log(antrenor)
         }
     });
 });

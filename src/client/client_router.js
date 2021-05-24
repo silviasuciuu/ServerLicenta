@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import * as res from "express";
 import Client from "./client";
 import path from "path";
+import Antrenor from "../antrenor/antrenor";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -45,6 +46,27 @@ router.get('/credidentials', (req, res) => {
             res.send(err);
         } else {
             res.send(antrenor);
+        }
+    });
+});
+
+
+
+
+router.get('/email', (req, res) => {
+    var email = req.headers["email"];
+    console.log(email)
+    // se primeste ed forma "email" trebuie eliminate ghilimelele
+    var emaill=email.substring(1,email.length-1)
+
+    Client.findByEmail(emaill, (err, client) => {
+
+        if (err) {
+            res.send(err);
+        } else {
+
+            res.send(client);
+            console.log(client)
         }
     });
 });
