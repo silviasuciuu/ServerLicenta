@@ -1,5 +1,6 @@
 import Parere from "./pareri.js";
 import Greutate from "../greutate/greutate";
+import Router from "koa-router";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -8,7 +9,7 @@ var jsonParser = bodyParser.json()
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
-export const router = express.Router()
+export const router = express.Router();
 /**
  * DE TESTAT !!!
  */

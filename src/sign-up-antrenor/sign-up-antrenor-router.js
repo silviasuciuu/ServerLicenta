@@ -1,21 +1,23 @@
-import Router from 'koa-router';
-import antrenor from "./antrenor";
+import Router from "koa-router";
+var express = require('express')
+export const router = express.Router()
+
 import * as res from "express";
-import Antrenor from "./antrenor";
+import SignUpAntrenor from "./sign-up-antrenor";
 import Client from "../client/client";
-import jwt from 'jsonwebtoken';
-import {jwtConfig} from '../utils/constants';
+import AntrenorSporturi from "../antrenor_sporturi/antrenor_sporturi";
 
 const bodyParser = require('body-parser');
 var express = require('express')
 const app = express();
 var jsonParser = bodyParser.json()
-global.atob = require("atob");
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
-export const router = express.Router()/*toti antrenorii*/
+
+/*toti antrenorii*/
 router.get('/', (req, res) => {
-    Antrenor.findAll((err, antrenor) => {
+    SignUpAntrenor.findAll((err, antrenor) => {
         if (err) {
             res.send(err);
         } else {
@@ -24,6 +26,29 @@ router.get('/', (req, res) => {
     });
 });
 
+/*create*/
+router.post('/create/antrenor-sporturi', (req, res) => {
+
+    var id_sport = req.body["id_sport"];
+    var id_antrenor = req.body["id_antrenor"];
+    var experienta = req.body["experienta"];
+
+    var a = new AntrenorSporturi({
+        "id_sport": id_sport,
+        "id_antrenor": id_antrenor,
+        "experienta": experienta
+
+    })
+    AntrenorSporturi.create(a, (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.sendStatus(200);
+        }
+    });
+});
+
+
 
 /*get by email*/
 router.get('/email', (req, res) => {
@@ -31,7 +56,8 @@ router.get('/email', (req, res) => {
 
     // se primeste ed forma "email" trebuie eliminate ghilimelele
     var emaill = email.substring(1, email.length - 1)
-    Antrenor.findByEmail(emaill, (err, antrenor) => {
+
+    SignUpAntrenor.findByEmail(emaill, (err, antrenor) => {
 
         if (err) {
             res.send(err);
@@ -48,7 +74,7 @@ router.get('/email', (req, res) => {
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
 
-    Antrenor.findById(id, (err, antrenor) => {
+    SignUpAntrenor.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
         } else {
@@ -62,7 +88,7 @@ router.get('/credidentials', (req, res) => {
     var email = req.headers["email"];
     var password = req.headers["parola"];
 
-    Antrenor.findByEmailAndPassword(email, password, (err, antrenor) => {
+    SignUpAntrenor.findByEmailAndPassword(email, password, (err, antrenor) => {
         if (err) {
             res.send(err);
         } else {
@@ -70,6 +96,8 @@ router.get('/credidentials', (req, res) => {
         }
     });
 });
+
+
 
 
 router.post('/create', async (req, res) => {
@@ -82,7 +110,8 @@ router.post('/create', async (req, res) => {
     var poza = req.body["poza"];
 
 
-    var a = new Antrenor({
+
+    var a = new SignUpAntrenor({
         "id": 0,
         "nume": nume,
         "prenume": prenume,
@@ -93,13 +122,13 @@ router.post('/create', async (req, res) => {
         "descriere": descriere,
         "poza": poza
     })
-    await Antrenor.findByEmail(email, (err, user) => {
+    await SignUpAntrenor.findByEmail(email, (err, user) => {
         if (err) {
         } else {
             if (user.length !== 0) {
                 res.status(400).send({error: "Email already used"});
             } else {
-                Antrenor.create(a, (err, user) => {
+                SignUpAntrenor.create(a, (err, user) => {
                     res.sendStatus(200);
                 });
             }
@@ -108,24 +137,25 @@ router.post('/create', async (req, res) => {
 });
 
 router.put('/edit', (req, res) => {
-    console.log(req.body)
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
+    var email = req.body["email"];
     var password = req.body["parola"];
     var varsta = req.body["varsta"];
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
-    var a = new Antrenor({
+    var a = new SignUpAntrenor({
         "id": 0,
         "nume": nume,
         "prenume": prenume,
+        "email": email,
         "parola": password,
         "varsta": varsta,
         "nota": 0,
         "descriere": descriere,
         "poza": poza
     })
-    Antrenor.update(a, (err, result) => {
+    SignUpAntrenor.update(a, (err, result) => {
         if (err) {
             res.send(err);
         } else {

@@ -10,19 +10,28 @@ import { router as greutateRouter } from './greutate';
 import { router as mesajRouter } from './mesaj';
 import { router as parereRouter } from './parere';
 import { router as transformareRouter } from './transformare';
+import { router as signUpClientRouter } from './sign-up-client';
+import { router as signUpAntrenorRouter } from './sign-up-antrenor';
+
 import express from "express";
-import antrenor from "./antrenor/antrenor";
 import * as bodyParser from "body-parser";
+import {initWss} from "./utils";
 
 var cors = require('cors')
 var app = express()
 
 app.use(cors())
+
 const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+initWss(wss);
 const port = 3000;
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 app.use('/sport', sportRouter);
+app.use('/signup-client', signUpClientRouter);
+app.use('/signup-antrenor', signUpAntrenorRouter);
+
 app.use('/antrenor', antrenorRouter);
 app.use('/antrenor_client', antrenor_clientRouter);
 app.use('/antrenor_sporturi', antrenor_sporturiRouter);

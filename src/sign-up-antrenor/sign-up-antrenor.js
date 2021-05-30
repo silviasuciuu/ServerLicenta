@@ -1,33 +1,31 @@
 import {dbConn} from "../dbutils/db.config"
 
 
-
-
-
-export default class Antrenor {
-    constructor({id, nume, prenume, email, parola, varsta,nota,descriere,poza}) {
+export default class SignUpAntrenor {
+    constructor({id, nume, prenume, email, parola, varsta, nota, descriere, poza}) {
         this.id = id;
         this.nume = nume;
         this.prenume = prenume;
         this.email = email;
         this.parola = parola;
         this.varsta = varsta;
-        this.nota=nota;
-        this.descriere=descriere;
-        this.poza=poza;
+        this.nota = nota;
+        this.descriere = descriere;
+        this.poza = poza;
 
     }
 
-    static async create(newAntrenor, result){
-        dbConn.query("INSERT INTO antrenor set ?", [newAntrenor], function (err, res){
-            if(err){
-                console.log("error: ",err);
-                result(err,null);
-            }else {
-                result(null,res.insertId);
+    static async create(newAntrenor, result) {
+        dbConn.query("INSERT INTO antrenor set ?", [newAntrenor], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res.insertId);
             }
         });
     };
+
     static async findAll(result) {
         dbConn.query("SELECT * from antrenor", function (err, res) {
             if (err) {
@@ -35,6 +33,7 @@ export default class Antrenor {
                 result(null, err);
             } else {
                 result(null, res);
+                console.log(result)
             }
         });
     };
@@ -73,7 +72,8 @@ export default class Antrenor {
     };
 
     static async update(antrenor, result) {
-        dbConn.query("UPDATE antrenor SET  varsta=? ,descriere=?,poza=? where nume=? and prenume=?", [  antrenor.varsta,antrenor.nota,antrenor.descriere,antrenor.poza, antrenor.nume,antrenor.prenume], function (err, res) {
+        console.log(antrenor)
+        dbConn.query("UPDATE antrenor SET email=? ,parola=? ,varsta=? ,nota=? ,descriere=?,poza=? where nume=? and prenume=?", [antrenor.email, antrenor.parola, antrenor.varsta, antrenor.nota, antrenor.descriere, antrenor.poza, antrenor.nume, antrenor.prenume], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
