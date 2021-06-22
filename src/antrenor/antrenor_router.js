@@ -5,6 +5,7 @@ import Antrenor from "./antrenor";
 import Client from "../client/client";
 import jwt from 'jsonwebtoken';
 import {jwtConfig} from '../utils/constants';
+import {broadcast} from "../utils";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -47,7 +48,7 @@ router.get('/email', (req, res) => {
 /*get by id*/
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
-
+console.log(id,'idddd')
     Antrenor.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
@@ -81,7 +82,6 @@ router.post('/create', async (req, res) => {
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
 
-
     var a = new Antrenor({
         "id": 0,
         "nume": nume,
@@ -100,23 +100,26 @@ router.post('/create', async (req, res) => {
                 res.status(400).send({error: "Email already used"});
             } else {
                 Antrenor.create(a, (err, user) => {
+                  //  broadcast(a.id, { type: 'created', payload: a});
                     res.sendStatus(200);
+
                 });
             }
         }
     });
+
 });
 
-router.put('/edit', (req, res) => {
-    console.log(req.body)
+router.put('/edit', async (req, res) => {
+    var id=req.body['id']
     var nume = req.body["nume"];
     var prenume = req.body["prenume"];
     var password = req.body["parola"];
     var varsta = req.body["varsta"];
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
-    var a = new Antrenor({
-        "id": 0,
+    var antrenor = new Antrenor({
+        "id": id,
         "nume": nume,
         "prenume": prenume,
         "parola": password,
@@ -125,13 +128,14 @@ router.put('/edit', (req, res) => {
         "descriere": descriere,
         "poza": poza
     })
-    Antrenor.update(a, (err, result) => {
+   await Antrenor.update(antrenor, (err, result) => {
         if (err) {
             res.send(err);
         } else {
             res.sendStatus(200);
         }
     });
+
 });
 
 

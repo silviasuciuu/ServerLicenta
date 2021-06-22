@@ -24,6 +24,7 @@ app.use(cors())
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
 initWss(wss);
 const port = 3000;
 app.use(bodyParser.json()); // support json encoded bodies

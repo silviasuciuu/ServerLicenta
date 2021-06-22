@@ -1,4 +1,5 @@
 import {dbConn} from "../dbutils/db.config"
+import {broadcast} from "../utils";
 
 
 
@@ -73,11 +74,12 @@ export default class Antrenor {
     };
 
     static async update(antrenor, result) {
-        dbConn.query("UPDATE antrenor SET  varsta=? ,descriere=?,poza=? where nume=? and prenume=?", [  antrenor.varsta,antrenor.nota,antrenor.descriere,antrenor.poza, antrenor.nume,antrenor.prenume], function (err, res) {
+        dbConn.query("UPDATE antrenor SET nume=?,prenume=?,varsta=? ,descriere=?,poza=? where id=?", [ antrenor.nume,antrenor.prenume, antrenor.varsta,antrenor.descriere,antrenor.poza,antrenor.id], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
             } else {
+                broadcast(antrenor.id, { type: 'updated', payload: antrenor });
                 result(null, res);
             }
         });

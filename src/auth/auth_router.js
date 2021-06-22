@@ -14,6 +14,7 @@ export const router = express.Router()
 
 router.post('/login', (req, res) => {
     const {email, parola, tip} = req.body;
+
     if (email && parola) {
         Auth.findByEMailAndPassword(email, parola, tip, (err, user) => {
                 if (err) {
