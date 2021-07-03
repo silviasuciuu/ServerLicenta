@@ -41,6 +41,20 @@ export default class AntrenorSporturi {
         });
     };
 
+
+    static async getExperience(id, result) {
+        dbConn.query("SELECT sport.denumire,antrenor_sporturi.experienta from sport  left join antrenor_sporturi on  antrenor_sporturi.id_antrenor = ? and sport.id=antrenor_sporturi.id_sport ORDER BY sport.id", [id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+
+        });
+    };
+
+
     static async findByIdSport(id, result) {
         dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ", id, function (err, res) {
             if (err) {

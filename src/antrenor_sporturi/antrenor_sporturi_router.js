@@ -45,6 +45,18 @@ router.get('/id_sport', (req, res) => {
     });
 });
 
+router.get('/experience', (req, res) => {
+    var id = req.headers["id_antrenor"];
+
+    AntrenorSporturi.getExperience(id, (err, antrenor) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(antrenor);
+        }
+    });
+});
+
 
 /*create*/
 router.post('/create', (req, res) => {
