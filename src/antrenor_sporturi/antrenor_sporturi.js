@@ -8,16 +8,17 @@ export default class AntrenorSporturi {
 
     }
 
-    static async create(newAntrenorSporturi, result){
-        dbConn.query("INSERT INTO antrenor_sporturi set ?", newAntrenorSporturi, function (err, res){
-            if(err){
-                console.log("error: ",err);
-                result(err,null);
-            }else {
-                result(null,res.insertId);
+    static async create(newAntrenorSporturi, result) {
+        dbConn.query("INSERT INTO antrenor_sporturi set ?", newAntrenorSporturi, function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res.insertId);
             }
         });
     };
+
     static async findAll(result) {
         dbConn.query("SELECT * from antrenor_sporturi", function (err, res) {
             if (err) {
@@ -41,7 +42,6 @@ export default class AntrenorSporturi {
         });
     };
 
-
     static async getExperience(id, result) {
         dbConn.query("SELECT sport.denumire,antrenor_sporturi.experienta from sport  left join antrenor_sporturi on  antrenor_sporturi.id_antrenor = ? and sport.id=antrenor_sporturi.id_sport ORDER BY sport.id", [id], function (err, res) {
             if (err) {
@@ -54,7 +54,6 @@ export default class AntrenorSporturi {
         });
     };
 
-
     static async findByIdSport(id, result) {
         dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ", id, function (err, res) {
             if (err) {
@@ -66,11 +65,39 @@ export default class AntrenorSporturi {
         });
     };
 
+    static async findByIdAntrSport(idA, idS, result) {
+        dbConn.query("SELECT * from antrenor_sporturi where id_antrenor= ? and id_sport=? ", [idA, idS], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
 
 
+    static async update(id_antrenor, id_sport, experienta, result) {
 
-    static async update(id_antrenor,id_sport,experienta, result) {
-        dbConn.query("UPDATE antrenor_sporturi SET experienta=? WHERE id_antrenor=? AND id_sport=?", [experienta,id_antrenor,id_sport], function (err, res) {
+
+        AntrenorSporturi.findByIdAntrSport(id_antrenor, id_sport, (err, antrenor) => {
+
+            if (antrenor.length == 0) {
+                var a = new AntrenorSporturi({
+                    "id_sport": id_sport,
+                    "id_antrenor": id_antrenor,
+                    "experienta": experienta
+
+                })
+                AntrenorSporturi.create(a, (err, result) => {
+                    console.log('da')
+                });
+
+            }
+        });
+
+
+        dbConn.query("UPDATE antrenor_sporturi SET experienta=? WHERE id_antrenor=? AND id_sport=?", [experienta, id_antrenor, id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -79,8 +106,9 @@ export default class AntrenorSporturi {
             }
         });
     }
-    static async delete(id_antrenor,id_sport, result) {
-        dbConn.query("DELETE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor,id_sport], function (err, res) {
+
+    static async delete(id_antrenor, id_sport, result) {
+        dbConn.query("DELETE FROM antrenor_sporturi  where id_antrenor=? AND id_sport=?", [id_antrenor, id_sport], function (err, res) {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);

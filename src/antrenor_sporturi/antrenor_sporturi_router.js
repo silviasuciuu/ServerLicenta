@@ -98,7 +98,6 @@ router.put('/edit', (req, res) => {
     var antrenor = req.body["antrenor"];
     var sport = req.body["sport"];
     var experienta = req.body["experienta"];
-
     var a = new AntrenorSporturi({
         "id_antrenor": antrenor,
         "id_sport": sport,
