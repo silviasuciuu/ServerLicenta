@@ -3,6 +3,7 @@ import * as res from "express";
 import Client from "./client";
 import path from "path";
 import Antrenor from "../antrenor/antrenor";
+import Greutate from "../greutate/greutate";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
 /*get by id*/
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
-
+console.log(id)
     Client.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
@@ -157,3 +158,24 @@ router.put('/edit', (req, res) => {
     })
 
 });
+
+
+
+router.put('/edit_greutate', (req, res) => {
+    var id = req.body["id"];
+    var greutate = req.body["greutate"];
+    var bmi = req.body["bmi"];
+    var status = req.body["status"];
+console.log(id,greutate,bmi,status)
+
+        Client.updateGreutate(greutate,bmi,status, id,(err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+
+
+});
+

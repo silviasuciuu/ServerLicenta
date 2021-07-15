@@ -93,4 +93,15 @@ export default class ClientApp {
             }
         });
     }
+
+    static async updateGreutate(greutate,bmi,status,id, result) {
+        dbConn.query("UPDATE client SET greutate=?,bmi=?,status=? where id=?", [ greutate,bmi,status ,id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    }
 }

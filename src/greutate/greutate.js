@@ -9,6 +9,7 @@ export default class Greutate {
     }
 
     static async create(newGreutate, result){
+        console.log(newGreutate)
         dbConn.query("INSERT INTO greutate set ?", newGreutate, function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -44,7 +45,7 @@ export default class Greutate {
 
 
 
-    static async  update(idClient,greutate,data, result) {
+    static async update(idClient,greutate,data, result) {
         dbConn.query("UPDATE greutate SET greutate=?,data=? where id=Client?", [greutate, data, idClient], function (err, res) {
             if (err) {
                 console.log("error: ", err);

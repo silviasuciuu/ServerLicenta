@@ -29,12 +29,12 @@ router.get('/id_client', (req, res) => {
 
 /*create*/
 router.post('/create', (req, res) => {
-    var id_client = req.body["id_client "];
+    var id_client = req.body["id_client"];
     var greutate = req.body["greutate"];
     var data = req.body["data"];
 
     var a = new Greutate({
-        "id_client": id_client,
+        "idClient": id_client,
         "greutate": greutate,
         "data": data
 
@@ -49,8 +49,6 @@ router.post('/create', (req, res) => {
 });
 
 
-
-
 router.put('/edit', (req, res) => {
     var id_client = req.body["id_client "];
     var greutate = req.body["greutate"];
@@ -58,7 +56,7 @@ router.put('/edit', (req, res) => {
 
 
     var a = new Greutate({
-        "id_client": id_client,
+        "idClient": id_client,
         "greutate": greutate,
         "data": data
 

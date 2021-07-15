@@ -12,19 +12,15 @@ export const router = express.Router()
 router.post('/create', (req, res) => {
 
     var id_antrenor = req.body["id_antrenor"];
-    var id_client = req.body["id_client "];
-    var descriere= req.body["descriere"];
-    var nota = req.body["nota"];
+    var poza= req.body["poza"];
 
-    var a = new Parere({
+    var a = new Transformare({
         "id":0,
-        "descriere":descriere,
         "id_antrenor":id_antrenor,
-        "id_client": id_client,
-        "nota": nota,
+        "poza": poza,
 
     })
-    Parere.create(a, (err, result) => {
+    Transformare.create(a, (err, result) => {
         if (err) {
             res.send(err);
         } else {
@@ -55,6 +51,7 @@ router.get('/id_client', (req, res) => {
         if (err) {
             res.send(err);
         } else {
+            console.log(resp)
             res.send(resp);
         }
     });
