@@ -6,6 +6,7 @@ import * as res from "express";
 import SignUpAntrenor from "./sign-up-antrenor";
 import Client from "../client/client";
 import AntrenorSporturi from "../antrenor_sporturi/antrenor_sporturi";
+import Antrenor from "../antrenor/antrenor";
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -108,7 +109,7 @@ router.post('/create', async (req, res) => {
     var varsta = req.body["varsta"];
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
-
+    var numar_telefon=req.body["numar_telefon"]
 
 
     var a = new SignUpAntrenor({
@@ -120,7 +121,8 @@ router.post('/create', async (req, res) => {
         "varsta": varsta,
         "nota": 0,
         "descriere": descriere,
-        "poza": poza
+        "poza": poza,
+        "numar_telefon":numar_telefon
     })
     await SignUpAntrenor.findByEmail(email, (err, user) => {
         if (err) {
@@ -128,9 +130,23 @@ router.post('/create', async (req, res) => {
             if (user.length !== 0) {
                 res.status(400).send({error: "Email already used"});
             } else {
-                SignUpAntrenor.create(a, (err, user) => {
-                    res.sendStatus(200);
+                SignUpAntrenor.findByTelephone(numar_telefon, (err, user) => {
+                    if (err) {
+                    } else {
+                        if (user.length !== 0) {
+                            res.status(400).send({error: "Phone number already used"});
+                        } else {
+                            SignUpAntrenor.create(a, (err, user) => {
+                                //  broadcast(a.id, { type: 'created', payload: a});
+                                res.sendStatus(200);
+
+                            });
+                        }
+                    }
                 });
+
+
+
             }
         }
     });

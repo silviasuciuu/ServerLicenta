@@ -6,7 +6,7 @@ import {broadcast} from "../utils";
 
 
 export default class Antrenor {
-    constructor({id, nume, prenume, email, parola, varsta,nota,descriere,poza}) {
+    constructor({id, nume, prenume, email, parola, varsta,nota,descriere,poza,numar_telefon}) {
         this.id = id;
         this.nume = nume;
         this.prenume = prenume;
@@ -16,10 +16,12 @@ export default class Antrenor {
         this.nota=nota;
         this.descriere=descriere;
         this.poza=poza;
+        this.numar_telefon=numar_telefon;
 
     }
 
     static async create(newAntrenor, result){
+        console.log(JSON.stringify(newAntrenor))
         dbConn.query("INSERT INTO antrenor set ?", [newAntrenor], function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -72,6 +74,22 @@ export default class Antrenor {
             }
         });
     };
+
+
+
+    static async findByTelephone(nr, result) {
+        dbConn.query("SELECT * from antrenor where numar_telefon = ? ", [nr], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
+
+
+
 
     static async update(antrenor, result) {
         dbConn.query("UPDATE antrenor SET nume=?,prenume=?,varsta=? ,descriere=?,poza=? where id=?", [ antrenor.nume,antrenor.prenume, antrenor.varsta,antrenor.descriere,antrenor.poza,antrenor.id], function (err, res) {

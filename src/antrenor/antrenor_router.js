@@ -48,7 +48,6 @@ router.get('/email', (req, res) => {
 /*get by id*/
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
-console.log(id,'idddd')
     Antrenor.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
@@ -81,6 +80,10 @@ router.post('/create', async (req, res) => {
     var varsta = req.body["varsta"];
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
+    var numar_telefon = req.body["numar_telefon"];
+   await console.log(req.body,'bodyyyy')
+
+
 
     var a = new Antrenor({
         "id": 0,
@@ -91,24 +94,41 @@ router.post('/create', async (req, res) => {
         "varsta": varsta,
         "nota": 0,
         "descriere": descriere,
-        "poza": poza
+        "poza": poza,
+        "numar_telefon":numar_telefon
     })
+    console.log(a)
     await Antrenor.findByEmail(email, (err, user) => {
         if (err) {
         } else {
             if (user.length !== 0) {
                 res.status(400).send({error: "Email already used"});
             } else {
-                Antrenor.create(a, (err, user) => {
-                  //  broadcast(a.id, { type: 'created', payload: a});
-                    res.sendStatus(200);
+                 Antrenor.findByTelephone(numar_telefon, (err, user) => {
+                    if (err) {
+                    } else {
+                        if (user.length !== 0) {
+                            res.status(400).send({error: "Phone number already used"});
+                        } else {
+                            Antrenor.create(a, (err, user) => {
+                                //  broadcast(a.id, { type: 'created', payload: a});
+                                res.sendStatus(200);
 
+                            });
+                        }
+                    }
                 });
             }
         }
     });
 
+
+
+
+
+
 });
+
 
 router.put('/edit', async (req, res) => {
     var id=req.body['id']

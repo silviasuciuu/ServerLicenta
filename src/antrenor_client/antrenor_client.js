@@ -24,7 +24,6 @@ export default class AntrenorClient {
                 result(null, err);
             } else {
                 result(null, res);
-                console.log(result)
             }
         });
     };
