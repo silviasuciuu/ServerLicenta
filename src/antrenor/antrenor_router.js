@@ -2,10 +2,7 @@ import Router from 'koa-router';
 import antrenor from "./antrenor";
 import * as res from "express";
 import Antrenor from "./antrenor";
-import Client from "../client/client";
-import jwt from 'jsonwebtoken';
-import {jwtConfig} from '../utils/constants';
-import {broadcast} from "../utils";
+
 
 const bodyParser = require('body-parser');
 var express = require('express')
@@ -81,7 +78,6 @@ router.post('/create', async (req, res) => {
     var descriere = req.body["descriere"];
     var poza = req.body["poza"];
     var numar_telefon = req.body["numar_telefon"];
-   await console.log(req.body,'bodyyyy')
 
 
 
@@ -97,21 +93,19 @@ router.post('/create', async (req, res) => {
         "poza": poza,
         "numar_telefon":numar_telefon
     })
-    console.log(a)
     await Antrenor.findByEmail(email, (err, user) => {
         if (err) {
         } else {
             if (user.length !== 0) {
-                res.status(400).send({error: "Email already used"});
+                res.status(400).send({error: "Email deja existent"});
             } else {
-                 Antrenor.findByTelephone(numar_telefon, (err, user) => {
+                 Antrenor.findByTelephone(numar_telefon, (err, user1) => {
                     if (err) {
                     } else {
-                        if (user.length !== 0) {
-                            res.status(400).send({error: "Phone number already used"});
+                        if (user1.length !== 0) {
+                            res.status(400).send({error: "Numar de telefon deja existent"});
                         } else {
                             Antrenor.create(a, (err, user) => {
-                                //  broadcast(a.id, { type: 'created', payload: a});
                                 res.sendStatus(200);
 
                             });

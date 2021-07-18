@@ -9,7 +9,6 @@ export default class Greutate {
     }
 
     static async create(newGreutate, result){
-        console.log(newGreutate)
         dbConn.query("INSERT INTO greutate set ?", newGreutate, function (err, res){
             if(err){
                 console.log("error: ",err);

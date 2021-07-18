@@ -18,7 +18,6 @@ export default class Auth {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                console.log(res)
                 result(null, res);
             }
         });

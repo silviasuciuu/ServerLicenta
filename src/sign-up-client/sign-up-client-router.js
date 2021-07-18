@@ -31,7 +31,6 @@ router.get('/id', (req, res) => {
 
 router.get('/email', (req, res) => {
     var email = req.headers["email"];
-    console.log(email)
     // se primeste ed forma "email" trebuie eliminate ghilimelele
     var emaill=email.substring(1,email.length-1)
 
@@ -42,7 +41,7 @@ router.get('/email', (req, res) => {
         } else {
 
             res.send(client);
-            console.log(client)
+
         }
     });
 });

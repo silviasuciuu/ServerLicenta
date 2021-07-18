@@ -9,9 +9,7 @@ var jsonParser = bodyParser.json()
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
 export const router = express.Router();
-/**
- * DE TESTAT !!!
- */
+
 
 
 /*get by id client*/

@@ -27,6 +27,12 @@ export default class SignUpClientApp {
                 result(null, res.insertId);
             }
         });
+
+
+
+
+
+
     };
     static async findByEmail(email, result) {
         dbConn.query("SELECT * from client where email = ? ", [email], function (err, res) {
@@ -46,7 +52,6 @@ export default class SignUpClientApp {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-               // result(null, res);
                 return res;
             }
         });

@@ -1,5 +1,4 @@
 import {dbConn} from "../dbutils/db.config"
-import {broadcast} from "../utils";
 
 
 
@@ -21,7 +20,6 @@ export default class Antrenor {
     }
 
     static async create(newAntrenor, result){
-        console.log(JSON.stringify(newAntrenor))
         dbConn.query("INSERT INTO antrenor set ?", [newAntrenor], function (err, res){
             if(err){
                 console.log("error: ",err);
@@ -97,7 +95,6 @@ export default class Antrenor {
                 console.log("error: ", err);
                 result(err, null);
             } else {
-                broadcast(antrenor.id, { type: 'updated', payload: antrenor });
                 result(null, res);
             }
         });

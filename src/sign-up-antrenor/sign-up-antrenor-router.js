@@ -55,11 +55,10 @@ router.post('/create/antrenor-sporturi', (req, res) => {
 router.get('/email', (req, res) => {
     var email = req.headers["email"];
 
-    // se primeste ed forma "email" trebuie eliminate ghilimelele
+    // se primeste de forma "email" trebuie eliminate ghilimelele
     var emaill = email.substring(1, email.length - 1)
 
     SignUpAntrenor.findByEmail(emaill, (err, antrenor) => {
-
         if (err) {
             res.send(err);
         } else {
@@ -137,7 +136,6 @@ router.post('/create', async (req, res) => {
                             res.status(400).send({error: "Phone number already used"});
                         } else {
                             SignUpAntrenor.create(a, (err, user) => {
-                                //  broadcast(a.id, { type: 'created', payload: a});
                                 res.sendStatus(200);
 
                             });

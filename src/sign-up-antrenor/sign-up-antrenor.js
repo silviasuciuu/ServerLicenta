@@ -17,7 +17,6 @@ export default class SignUpAntrenor {
     }
 
     static async create(newAntrenor, result) {
-        console.log(newAntrenor)
         dbConn.query("INSERT INTO antrenor set ?", [newAntrenor], function (err, res) {
             if (err) {
                 console.log("error: ", err);
@@ -72,6 +71,7 @@ export default class SignUpAntrenor {
             }
         });
     };
+
     static async findByTelephone(nr, result) {
         dbConn.query("SELECT * from antrenor where numar_telefon = ? ", [nr], function (err, res) {
             if (err) {
@@ -84,7 +84,6 @@ export default class SignUpAntrenor {
     };
 
     static async update(antrenor, result) {
-        console.log(antrenor)
         dbConn.query("UPDATE antrenor SET email=? ,parola=? ,varsta=? ,nota=? ,descriere=?,poza=? where nume=? and prenume=?", [antrenor.email, antrenor.parola, antrenor.varsta, antrenor.nota, antrenor.descriere, antrenor.poza, antrenor.nume, antrenor.prenume], function (err, res) {
             if (err) {
                 console.log("error: ", err);

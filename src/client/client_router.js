@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
 /*get by id*/
 router.get('/id', (req, res) => {
     var id = req.headers["id"];
-console.log(id)
     Client.findById(id, (err, antrenor) => {
         if (err) {
             res.send(err);
@@ -56,7 +55,6 @@ router.get('/credidentials', (req, res) => {
 
 router.get('/email', (req, res) => {
     var email = req.headers["email"];
-    console.log(email)
     // se primeste ed forma "email" trebuie eliminate ghilimelele
     var emaill=email.substring(1,email.length-1)
 
@@ -67,7 +65,6 @@ router.get('/email', (req, res) => {
         } else {
 
             res.send(client);
-            console.log(client)
         }
     });
 });
@@ -166,7 +163,6 @@ router.put('/edit_greutate', (req, res) => {
     var greutate = req.body["greutate"];
     var bmi = req.body["bmi"];
     var status = req.body["status"];
-console.log(id,greutate,bmi,status)
 
         Client.updateGreutate(greutate,bmi,status, id,(err, result) => {
             if (err) {
