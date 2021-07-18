@@ -9,31 +9,33 @@ import { router as greutateRouter } from './greutate';
 import { router as transformareRouter } from './transformare';
 import { router as signUpClientRouter } from './sign-up-client';
 import { router as signUpAntrenorRouter } from './sign-up-antrenor';
-
-import express from "express";
 import * as bodyParser from "body-parser";
 
-var cors = require('cors')
+import express from "express";
 var app = express()
+const server = http.createServer(app);
+
+
+var cors = require('cors')
 
 app.use(cors())
 
-const server = http.createServer(app);
 
-const port = 3000;
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+
 app.use('/sport', sportRouter);
 app.use('/signup-client', signUpClientRouter);
 app.use('/signup-antrenor', signUpAntrenorRouter);
-
 app.use('/antrenor', antrenorRouter);
 app.use('/auth', authRouter);
 app.use('/client', clientRouter);
 app.use('/greutate',greutateRouter);
 app.use('/antrenor_sporturi',antrenor_sporturiRouter);
-
 app.use('/transformare', transformareRouter);
+
+const port = 3000;
 server.listen(port,()=>{
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`App listening at http://localhost:${port}`)
 })

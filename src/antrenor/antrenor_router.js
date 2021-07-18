@@ -7,7 +7,6 @@ import Antrenor from "./antrenor";
 const bodyParser = require('body-parser');
 var express = require('express')
 const app = express();
-var jsonParser = bodyParser.json()
 global.atob = require("atob");
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false})); // support encoded bodies
