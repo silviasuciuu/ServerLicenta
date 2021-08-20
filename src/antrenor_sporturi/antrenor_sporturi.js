@@ -54,16 +54,7 @@ export default class AntrenorSporturi {
         });
     };
 
-    static async findByIdSport(id, result) {
-        dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ", id, function (err, res) {
-            if (err) {
-                console.log("error: ", err);
-                result(err, null);
-            } else {
-                result(null, res);
-            }
-        });
-    };
+
 
     static async findByIdAntrSport(idA, idS, result) {
         dbConn.query("SELECT * from antrenor_sporturi where id_antrenor= ? and id_sport=? ", [idA, idS], function (err, res) {
@@ -117,4 +108,30 @@ export default class AntrenorSporturi {
             }
         });
     }
+
+
+
+
+    static async getByScop( id_scop, result) {
+        dbConn.query("SELECT sport.id from sport inner join scopuri_sport where sport.id=scopuri_sport.id_sport and scopuri_sport.id_scop=?",[id_scop], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    }
+    static async findByIdSport(id, result) {
+        dbConn.query("SELECT * from antrenor_sporturi where id_sport= ? ",[ id], function (err, res) {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+            } else {
+                result(null, res);
+            }
+        });
+    };
+
+
 }

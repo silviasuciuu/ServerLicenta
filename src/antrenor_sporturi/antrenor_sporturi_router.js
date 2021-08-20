@@ -111,3 +111,15 @@ router.put('/edit', (req, res) => {
         }
     });
 });
+
+router.get('/scop', (req, res) => {
+    var id_scop = req.headers["id_scop"];
+    AntrenorSporturi.getByScop(id_scop, (err, antrenor) => {
+        if (err) {
+            res.send(err);
+        } else {
+            console.log(antrenor)
+            res.send(antrenor);
+        }
+    });
+});
