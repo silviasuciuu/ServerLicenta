@@ -24,7 +24,7 @@ app.use(cors())
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
-
+app.use(bodyParser({limit: '200mb'}));
 app.use('/sport', sportRouter);
 app.use('/signup-client', signUpClientRouter);
 app.use('/signup-antrenor', signUpAntrenorRouter);
